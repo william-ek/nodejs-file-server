@@ -2,7 +2,8 @@
   "development": {
       "config_id": "development",
       "node_port": 3000,
-      "file_path": "c:/Users/Bill/Downloads/"
+      "file_path": "c:/Users/Bill/Downloads/",
+      "dist_path": "C:/Users/Bill/workspaces/HCD/Angular_Introduction/assignments-demo/dist"
   },
   "testing": {
       "config_id": "testing",

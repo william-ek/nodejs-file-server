@@ -1,10 +1,17 @@
 var express = require('express');
-var cors = require('cors');
-var serveStatic = require('serve-static');
+const http = require('http');
+const path = require('path');
+
+const config = require('./resources/config.json');
+const environment = config.development;
 
 var app = express();
 
-app.use(cors());
-app.use(serveStatic('c:/Users/Bill/Downloads', { 'index': ['default.html', 'default.htm'] }));
+app.use(express.static(path.join(environment.dist_path,'assignments-demo')));
 
-app.listen(3100);
+app.use('/',(req,res)=>{
+	
+	res.sendFile(path.join(environment.dist_path,'assignments-demo/index.html'))
+});
+
+app.listen(3001);

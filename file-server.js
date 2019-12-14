@@ -1,6 +1,6 @@
 var express = require('express');
+const path = require('path');
 var cors = require('cors');
-var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
@@ -10,8 +10,6 @@ const environment = config.development;
 var app = express();
 
 app.use(cors());
-
-// app.use(serveStatic('c:/Users/Bill/Downloads', { 'index': ['default.html', 'default.htm'] }));
 
 app.use(bodyParser.json({
 
@@ -23,7 +21,16 @@ app.use(bodyParser.json({
 
 }));
 
-app.get('/:filename', function(request, response) {
+app.use(express.static(path.join(environment.dist_path,'assignments-demo')));
+
+app.use('/app/v1',(req,res)=>{
+
+    console.log('get app html');
+	
+	res.sendFile(path.join(environment.dist_path,'assignments-demo/index.html'))
+});
+
+app.get('/file/v1/:filename', function(request, response) {
 
     console.log(' get filename');
 
@@ -47,7 +54,7 @@ app.get('/:filename', function(request, response) {
 });
 
 
-app.post('/:filename', function(request, response) {
+app.post('/file/v1/:filename', function(request, response) {
 
     console.log('create filename');
     console.log(request.params.filename);
@@ -73,7 +80,7 @@ app.post('/:filename', function(request, response) {
 
 });
 
-app.delete('/:filename', function(request, response) {
+app.delete('/file/v1/:filename', function(request, response) {
 
     console.log('delete filename');
     console.log(request.params.filename);
